@@ -1,0 +1,82 @@
+.intro-request {
+  padding: 10px 0;
+  box-sizing: border-box;
+  .name-wrap {
+    display: flex;
+    align-items: center;
+    .method {
+      color: #fff;
+      background-color: @theme-color-primary;
+      height: 22px;
+      line-height: 22px;
+      padding: 0 12px;
+      border-radius: 3px;
+      font-weight: 700;
+      vertical-align: middle;
+      font-size: 13px;
+      margin-right: 10px;
+    }
+
+    .method-get {
+      background-color: @method-color-get;
+    }
+
+    .method-post {
+      background-color: @method-color-post;
+    }
+
+    .method-put {
+      background-color: @method-color-put;
+    }
+
+    .method-delete {
+      background-color: @method-color-delete;
+    }
+
+    .method-options {
+      background-color: @method-color-options;
+    }
+
+    .method-head {
+      background-color: @method-color-head;
+    }
+
+    .method-patch {
+      background-color: @method-color-patch;
+    }
+
+    .method-trace {
+      background-color: @method-color-trace;
+    }
+
+    .method-others {
+      background-color: @method-color-others;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      flex: 1;
+    }
+
+    .opt-wrap {
+    }
+  }
+
+  .meta-info {
+    margin-top: 10px;
+    display: flex;
+    color: rgba(16, 24, 40, 0.56);
+    .meta-item {
+      margin-right: 25px;
+      font-size: 14px;
+      .title {
+        margin-right: 5px;
+      }
+      .val {
+        font-size: 14px;
+        color: #000;
+      }
+    }
+  }
+}

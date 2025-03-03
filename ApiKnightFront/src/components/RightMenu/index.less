@@ -1,0 +1,19 @@
+.doc-area {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .panel {
+    padding: 0 20px;
+    flex: 1;
+    overflow: scroll;
+    // 隐藏滚动条
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+    box-sizing: border-box;
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0 !important;
+    }
+    scrollbar-width: none; /* Firefox */
+  }
+}

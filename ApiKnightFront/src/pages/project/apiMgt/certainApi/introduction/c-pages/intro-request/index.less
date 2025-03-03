@@ -1,0 +1,62 @@
+.intro-req {
+  .req-content {
+    .param-item {
+      width: 100%;
+      margin: 10px 0;
+      max-height: 600px;
+    }
+  }
+}
+
+.param-kv {
+  margin: 15px 0;
+  .type,
+  .example {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 13px;
+    .label {
+      font-size: 13px;
+    }
+  }
+
+  .type {
+    .param-type {
+      font-size: 13px;
+    }
+
+    .require {
+      margin-left: 10px;
+    }
+  }
+
+  .example {
+    display: flex;
+    .label {
+      font-size: 13px;
+      margin: 0 10px;
+      min-width: 45px;
+    }
+
+    .val {
+      font-size: 13px;
+      flex: 1;
+      padding-right: 20px;
+      .example-tag {
+        width: fit-content;
+        max-width: calc(100% - 20px);
+        border: 0.8px solid rgb(217, 217, 217);
+        border-radius: 4px;
+        padding: 0 7px;
+        // 允许换行
+        word-break: break-all;
+      }
+    }
+  }
+}
+
+.req-label-sm {
+  font-size: 13px;
+  margin-right: 10px;
+}
