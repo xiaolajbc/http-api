@@ -8,7 +8,7 @@
 import { reportError } from './reportError'
 // 3. 封装成一个 monitor
 export function createPerfMonitor(adress: string) {
-   return function (url?: string) {
+  return function (url?: string) {
     const name = 'performance'
     const report = reportError(adress)
     if (url === '' || url === undefined) {

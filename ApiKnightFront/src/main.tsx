@@ -20,13 +20,13 @@ const theme: ThemeConfig = {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ConfigProvider theme={theme}>
     <NiceModal.Provider>
-    <AntdApp style={{ height: '100%' }}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </AntdApp>
+      <AntdApp style={{ height: '100%' }}>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </AntdApp>
     </NiceModal.Provider>
   </ConfigProvider>,
 )

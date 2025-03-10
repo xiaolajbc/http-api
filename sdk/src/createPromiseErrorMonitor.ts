@@ -1,7 +1,7 @@
 import { reportError } from './reportError'
 
 export function createPromiseErrorMonitor(adress: string) {
-   return function (url?: string) {
+  return function (url?: string) {
     const resport = reportError(adress)
     const name = 'promise'
     if (url === '' || url === undefined) {

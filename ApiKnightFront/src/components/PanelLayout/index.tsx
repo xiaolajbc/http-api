@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { useLayoutEffect, useMemo, useState } from 'react'
 import {
   getPanelGroupElement,
   Panel,
@@ -9,13 +9,8 @@ import {
 import type { ImperativePanelHandle } from 'react-resizable-panels'
 import { theme } from 'antd'
 import { throttle } from 'lodash-es'
-import { ChevronRightIcon } from 'lucide-react'
 import useResizeObserver from 'use-resize-observer'
-// import { FooterBar } from '../components/FooterBar'
-import { css } from '@emotion/css'
-import './index.less'
-// const panelRef = useRef<ImperativePanelHandle>(null)
-// const [isSideMenuCollapsed, setIsSideMenuCollapsed] = useState(false)
+import { css } from "@emotion/css";
 const SIDE_PANEL_DEFAULT_WIDTH = 280
 const SIDE_PANEL_MIN_WIDTH = 200
 const SIDE_PANEL_MAX_WIDTH = 600
@@ -119,19 +114,12 @@ export function PanelLayout(props: PanelLayoutProps) {
         {!!defaultSize && !!minSize && (
           <>
             <Panel
-              //   ref={panelRef}
               collapsible
               className='flex h-full flex-col overflow-hidden'
               defaultSize={defaultSize}
               maxSize={maxSize}
               minSize={minSize}
-              order={1}
-              onCollapse={() => {
-                // setIsSideMenuCollapsed(true)
-              }}
-              onExpand={() => {
-                // setIsSideMenuCollapsed(false)
-              }}>
+              order={1}>
               <div className='p-2'>
                 <span className='px-2 text-lg font-semibold'>{layoutName}</span>
               </div>
@@ -158,18 +146,6 @@ export function PanelLayout(props: PanelLayoutProps) {
           </div>
         </Panel>
       </PanelGroup>
-
-      {/* {isSideMenuCollapsed && (
-        <div
-          className={`absolute left-0 top-1/2 z-50 flex h-12 w-4 -translate-y-1/2 cursor-pointer items-center justify-center rounded-r-lg ${styles.expandTrigger}`}
-          onClick={() => {
-            // panelRef.current?.expand()
-          }}
-        >
-          <ChevronRightIcon size={12} strokeWidth={3} />
-        </div>
-      )} */}
     </>
-    // <></>
   )
 }

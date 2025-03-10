@@ -2,7 +2,7 @@ import { reportError } from './reportError'
 
 // 采集静态资源错误的monitor
 export function createResourceErrorMonitor(adress: string) {
-   return function (url?: string) {
+  return function (url?: string) {
     const report = reportError(adress)
     const name = 'resource-error'
     if (url === '' || url === undefined) {

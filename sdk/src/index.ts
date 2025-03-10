@@ -6,7 +6,7 @@ import { createPromiseErrorMonitor } from './createPromiseErrorMonitor'
 import { reportError } from './reportError'
 
 export function Monitor(reportAdress: string) {
-   const blankScreenMonitor = createBlankScreenMonitor(reportAdress)
+  const blankScreenMonitor = createBlankScreenMonitor(reportAdress)
   const jsErrorMonitor = createJsErrorMonitor(reportAdress)
   const perfMonitor = createPerfMonitor(reportAdress)
   const resourceErrorMonitor = createResourceErrorMonitor(reportAdress)
@@ -27,7 +27,7 @@ export function Monitor(reportAdress: string) {
     return { name, start }
   }
   const report = reportError(reportAdress)
-   return {
+  return {
     createAllMonitor,
     report,
     blankScreenMonitor,

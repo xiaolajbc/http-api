@@ -12,20 +12,18 @@ const props: UploadProps = {
   onChange(info) {
     const { status } = info.file
     if (status !== 'uploading') {
-     }
+    }
     if (status === 'done') {
       message.success(`${info.file.name} file uploaded successfully.`)
     } else if (status === 'error') {
       message.error(`${info.file.name} file upload failed.`)
     }
   },
-  onDrop(e) {
-   },
+  onDrop(e) {},
 }
 
 const Swagger: React.FunctionComponent = () => {
-  const handleChange = (value: string) => {
-   }
+  const handleChange = (value: string) => {}
 
   return (
     <div className='swagger'>
