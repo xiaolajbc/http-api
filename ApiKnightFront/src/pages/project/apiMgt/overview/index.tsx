@@ -92,7 +92,6 @@ const Overview: React.FunctionComponent = () => {
     projectId: state.project.projectInfo.id,
   }))
 
-  // 确认导入事件
   async function handleConfirmImport() {
     setOnImporting(true)
     try {
@@ -103,13 +102,9 @@ const Overview: React.FunctionComponent = () => {
         data: '',
       })
       if (data?.type === 'api') {
-        // apiknight文档
         await startImportApiKnightDoc(data.data, getUserId())
       } else {
-        console.log(data)
-        // swagger2.0文档
         const apiInfoMap = parseSwaggerDoc(data, getUserId())
-        console.log(apiInfoMap)
         await startImport(apiInfoMap)
       }
 
@@ -123,28 +118,19 @@ const Overview: React.FunctionComponent = () => {
       setOnImporting(false)
       setOnImportVisible(false)
       setTimeout(() => {
-        // 暂时用刷新页面替代
         window.location.reload()
       }, 1000)
     }
   }
-
-  /**
-   *
-   * @param apiInfoListStr 来自apknight分享的接口信息中的api列表
-   */
   async function startImportApiKnightDoc(
     apiInfoListStr: string,
     userId: string,
   ) {
     const createdFolderList: string[] = []
-    // 将string转成对象
     const apiInfoList: IAPIInfo[] = JSON.parse(apiInfoListStr)
-    // 第一步遍历所有的目录，将不存在的目录创建
     const rootFolderId = folderList.find((item) => item.name === '根目录')?.id
     for (let i = 0; i < apiInfoList.length; i++) {
       const apiInfoItem = apiInfoList[i]
-      // 注入信息
       apiInfoItem.meta_info.owner_id = userId
       apiInfoItem.meta_info.notes = '来自分享的ApiKnight接口'
       if (!apiInfoItem?.apiInfo?.response?.body) {
@@ -153,51 +139,31 @@ const Overview: React.FunctionComponent = () => {
       if (!apiInfoItem?.meta_info?.name) {
         apiInfoItem.meta_info.name = '未命名接口'
       }
-
-      // 查询目录名称
       let folderName = '根目录'
       if (apiInfoItem?.meta_info?.folder_id) {
         folderName = await getFolderName(apiInfoItem.meta_info.folder_id)
-        // 将目录名暂时赋予到folder_id中
         apiInfoList[i].meta_info.folder_id = folderName
       } else {
         apiInfoList[i].meta_info.folder_id = '根目录'
       }
-      // 如果目录名存在则直接添加
       const folderIndexInProj = folderList.findIndex(
         (item) => item.name === folderName,
       )
-
-      // debugger
       if (folderIndexInProj === -1) {
-        // 并且此目录并没有被创建过
         if (createdFolderList.indexOf(folderName) === -1) {
-          // 目录不存在则创建目录
           await createFolder(projectId, rootFolderId, folderName)
           createdFolderList.push(folderName)
         }
       }
     }
-
-    // console.log({ apiInfoList })
-
-    // return
-    // 第二步 获取最新项目信息
     const resp = await getProjectInfoById(projectId)
     const { folder_list: newestFolderList } = resp.data
-
-    // return
-
-    // 第三步遍历所有的api，所有api创建
     for (const apiInfoItem of apiInfoList) {
-      // 如果目录名存在则直接添加
       const folderIndexInProj = newestFolderList.findIndex(
         (item) => item.name === apiInfoItem.meta_info.folder_id,
       )
       if (folderIndexInProj !== -1) {
-        // 创建接口
         const folderId = newestFolderList[folderIndexInProj].id
-        // 创建接口
         await createFullApi({
           projectId,
           folderId,
@@ -208,48 +174,33 @@ const Overview: React.FunctionComponent = () => {
         })
       }
     }
-
-    // 刷新本地的项目信息
     dispatch(fetchProjectInfoAction(projectId))
   }
 
-  /**
-   * 导入swagger文档
-   * @param apiInfoMap 来自swagger转换而来的api信息
-   */
   async function startImport(apiInfoMap: Map<string, IAPIInfo[]>) {
     const createdFolderList: string[] = []
-    // 第一步遍历所有的目录，将不存在的目录创建
     const rootFolderId = folderList.find((item) => item.name === '根目录')?.id
     for (const [folderName] of apiInfoMap) {
-      // 如果目录名存在则直接添加
       const folderIndexInProj = folderList.findIndex(
         (item) => item.name === folderName,
       )
       if (folderIndexInProj === -1) {
-        // 并且此目录并没有被创建过
         if (createdFolderList.indexOf(folderName) === -1) {
-          // 目录不存在则创建目录
           await createFolder(projectId, rootFolderId, folderName)
           createdFolderList.push(folderName)
         }
       }
     }
-    // 第二步 获取最新项目信息
     const res = await getProjectInfoById(projectId)
     const { folder_list: newestFolderList } = res.data
 
-    // 第三步遍历所有的api，所有api创建
     for (const [folderName, apiList] of apiInfoMap) {
-      // 如果目录名存在则直接添加
       const folderIndexInProj = newestFolderList.findIndex(
         (item) => item.name === folderName,
       )
       if (folderIndexInProj !== -1) {
-        // 创建接口
         for (const apiItem of apiList) {
           const folderId = newestFolderList[folderIndexInProj].id
-          // 创建接口
           await createFullApi({
             projectId,
             folderId,
@@ -261,12 +212,9 @@ const Overview: React.FunctionComponent = () => {
         }
       }
     }
-
-    // 刷新本地的项目信息
     dispatch(fetchProjectInfoAction(projectId))
   }
 
-  // 开始分享,准备分享链接
   async function startShare() {
     setShareUrl('正在生成分享链接...')
     setOnShareVisible(true)
@@ -274,9 +222,7 @@ const Overview: React.FunctionComponent = () => {
     setShareUrl(shareURL)
   }
 
-  // 确认分享事件
   async function handleConfirmShare() {
-    //  将链接写入剪切板
     navigator.clipboard.writeText(shareUrl)
     message.success('复制成功')
     setOnShareVisible(false)
